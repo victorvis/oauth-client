@@ -18,7 +18,7 @@ try {
     $cb->handleCallback($_GET);
 
     header("HTTP/1.1 302 Found");
-    header("Location: http://vis.project.default.dev");
+    header("Location: " . siteUrl);
     exit;
 } catch (\fkooman\OAuth\Client\AuthorizeException $e) {
     // this exception is thrown by Callback when the OAuth server returns a
