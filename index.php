@@ -19,11 +19,14 @@ $api = new fkooman\OAuth\Client\Api("victorvis", $clientConfig, $tokenStorage, $
 $context = new \fkooman\OAuth\Client\Context("victorviss@gmail.com", array("email"));
 
 $accessToken = $api->getAccessToken($context);
-if (false === $accessToken) {
+if (false === $accessToken && $_GET['authorize'] == 1) {
     /* no valid access token available, go to authorization server */
     header("HTTP/1.1 302 Found");
     header("Location: " . $api->getAuthorizeUri($context));
     exit;
+}elseif(false === $accessToken){
+	echo "<a href='index.php?authorize=1'>Logar com o Login do Cidadao</a>";
+	exit;
 }
 
 try {
@@ -47,3 +50,4 @@ try {
 } catch (\Exception $e) {
     die(sprintf('ERROR: %s', $e->getMessage()));
 }
+?>
